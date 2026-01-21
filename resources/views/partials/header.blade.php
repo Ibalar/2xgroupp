@@ -36,7 +36,7 @@
             <ul class="header-menu__list">
                 <li class="header-menu__item"><a href="{{ route('home') }}" class="menu__link {{ request()->routeIs('home') ? 'active' : '' }}">Главная</a></li>
                 <li class="header-menu__item"><a href="{{ route('catalog.categories') }}" class="menu__link {{ request()->routeIs('catalog.categories') ? 'active' : '' }}">Каталог</a></li>
-                <li class="header-menu__item"><a href="#" class="menu__link">Виды отделки</a></li>
+                <li class="header-menu__item"><a href="{{ route('finishing.index') }}" class="menu__link {{ request()->routeIs('finishing.*') ? 'active' : '' }}">Виды отделки</a></li>
                 @foreach($menuPages as $page)
                     <li class="header-menu__item">
                         <a href="{{ url('/' . $page->slug) }}"
