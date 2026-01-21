@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Product extends Model
 {
@@ -13,13 +14,15 @@ class Product extends Model
         'slug', 'name',
         'short_description', 'description',
         'price',
-        'is_active', 'sort',
+        'is_active', 'is_popular', 'sort',
         'cover_image',
         'gallery_images',
     ];
 
     protected $casts = [
         'gallery_images' => 'array',
+        'is_active' => 'boolean',
+        'is_popular' => 'boolean',
     ];
 
     public function category(): BelongsTo
@@ -35,5 +38,20 @@ class Product extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopePublished(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopePopular(Builder $query): Builder
+    {
+        return $query->where('is_popular', true);
     }
 }

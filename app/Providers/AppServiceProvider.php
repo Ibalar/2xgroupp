@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
-use App\Models\Page;
-use Illuminate\Support\ServiceProvider;
 use App\Models\CatalogCategory;
+use App\Models\Page;
+use App\Models\Product;
+use App\Observers\CatalogCategoryObserver;
+use App\Observers\ProductObserver;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,34 +26,39 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Register observers
+        CatalogCategory::observe(CatalogCategoryObserver::class);
+        Product::observe(ProductObserver::class);
+
         View::composer('partials.footer', function ($view) {
-            $footerCategories = CatalogCategory::query()
-                ->where('is_active', true)
-                ->orderBy('sort')
-                ->orderBy('name')
-                ->limit(8)
-                ->get(['id', 'name', 'slug']);
+            $footerCategories = Cache::rememberForever('catalog_categories_footer', function () {
+                return CatalogCategory::active()
+                    ->ordered()
+                    ->limit(8)
+                    ->get(['id', 'name', 'slug']);
+            });
 
             $view->with('footerCategories', $footerCategories);
         });
 
         View::composer(['layouts.app', 'partials.header'], function ($view) {
-            $menuPages = Page::query()
-                ->where('is_published', true)
-                ->orderBy('sort')
-                ->orderBy('title')
-                ->get(['id', 'slug', 'title']);
+            $menuPages = Cache::rememberForever('menu_pages', function () {
+                return Page::where('is_published', true)
+                    ->orderBy('sort')
+                    ->orderBy('title')
+                    ->get(['id', 'slug', 'title']);
+            });
 
             $view->with('menuPages', $menuPages);
         });
 
         View::composer('layouts.app', function ($view) {
-            $categories = CatalogCategory::query()
-                ->where('is_active', true)
-                ->orderBy('sort')
-                ->orderBy('name')
-                ->limit(8)
-                ->get(['id', 'name', 'slug', 'image']);
+            $categories = Cache::rememberForever('layout_categories', function () {
+                return CatalogCategory::active()
+                    ->ordered()
+                    ->limit(8)
+                    ->get(['id', 'name', 'slug', 'image']);
+            });
 
             $view->with('categories', $categories);
         });

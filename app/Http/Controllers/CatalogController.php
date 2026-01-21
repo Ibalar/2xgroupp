@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\CatalogCategory;
 use App\Models\Product;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 
 class CatalogController extends Controller
 {
     public function categories(): View
     {
-        $categories = CatalogCategory::query()
-            ->where('is_active', true)
-            ->orderBy('sort')
-            ->orderBy('name')
-            ->get(['id', 'name', 'slug', 'image']);
+        $categories = Cache::remember('catalog_all_categories', now()->addDay(), function () {
+            return CatalogCategory::active()
+                ->ordered()
+                ->get(['id', 'name', 'slug', 'image']);
+        });
 
         return view('catalog.categories', compact('categories'));
     }
