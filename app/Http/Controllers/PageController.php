@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CatalogCategory;
-use Illuminate\Http\Request;
 use App\Models\Page;
 
 class PageController extends Controller
@@ -12,10 +11,8 @@ class PageController extends Controller
     {
         abort_unless($page->is_published, 404);
 
-        $categories = CatalogCategory::query()
-            ->where('is_active', true)
-            ->orderBy('sort')
-            ->orderBy('name')
+        $categories = CatalogCategory::active()
+            ->ordered()
             ->get(['id', 'name', 'slug', 'image']);
 
         return view('page.show', compact('page', 'categories'));
