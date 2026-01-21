@@ -26,6 +26,18 @@
                     <li class="category-crumbs__item">{{ $title }}</li>
                 @endif
 
+                {{-- Виды отделки --}}
+                @if(request()->routeIs('finishing.index'))
+                    <li class="category-crumbs__item">{{ $title }}</li>
+                @endif
+
+                @if(request()->routeIs('finishing.show'))
+                    <li class="category-crumbs__item">
+                        <a href="{{ route('finishing.index') }}">Виды отделки</a>
+                    </li>
+                    <li class="category-crumbs__item">{{ $title }}</li>
+                @endif
+
                 {{-- Обычная страница (pages) --}}
                 @if(request()->routeIs('page.show'))
                     <li class="category-crumbs__item">{{ $title }}</li>
