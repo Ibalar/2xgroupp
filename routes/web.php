@@ -23,4 +23,11 @@ Route::prefix('catalog')->name('catalog.')->group(function () {
         ->name('product');
 });
 
+Route::prefix('finishing')->name('finishing.')->group(function () {
+    Route::get('/', [\App\Http\Controllers\FinishingController::class, 'index'])->name('index');
+    Route::get('/{type}/{finishingType:id}', [\App\Http\Controllers\FinishingController::class, 'show'])
+        ->where('type', 'internal|external')
+        ->name('show');
+});
+
 Route::get('/{page:slug}', [PageController::class, 'show'])->name('page.show');

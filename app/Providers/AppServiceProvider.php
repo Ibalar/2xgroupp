@@ -3,13 +3,15 @@
 namespace App\Providers;
 
 use App\Models\CatalogCategory;
+use App\Models\FinishingType;
 use App\Models\Page;
 use App\Models\Product;
 use App\Observers\CatalogCategoryObserver;
+use App\Observers\FinishingTypeObserver;
 use App\Observers\ProductObserver;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         // Register observers
         CatalogCategory::observe(CatalogCategoryObserver::class);
         Product::observe(ProductObserver::class);
+        FinishingType::observe(FinishingTypeObserver::class);
 
         View::composer('partials.footer', function ($view) {
             $footerCategories = Cache::rememberForever('catalog_categories_footer', function () {
