@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\FinishingType;
+use App\Observers\FinishingTypeObserver;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Services\CatalogService;
@@ -19,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        FinishingType::observe(FinishingTypeObserver::class);
+
         View::composer('partials.footer', function ($view) {
             $catalogService = app(CatalogService::class);
             $categories = $catalogService->getFooterCategories();
