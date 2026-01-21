@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Layouts;
 
+use App\MoonShine\Resources\FinishingType\FinishingTypeResource;
 use MoonShine\Laravel\Layouts\AppLayout;
 use MoonShine\ColorManager\Palettes\PurplePalette;
 use MoonShine\ColorManager\ColorManager;
@@ -40,6 +41,8 @@ final class MoonShineLayout extends AppLayout
                 MenuItem::make(CatalogCategoryResource::class, 'Разделы каталога')->icon('wallet'),
                 MenuItem::make(ProductResource::class, 'Предложения каталога')->icon('home-modern'),
             ])->icon('shopping-bag'),
+            MenuItem::make(FinishingTypeResource::class, 'Виды отделки')
+                ->icon('phone'),
             MenuItem::make(ContactRequestResource::class, 'Обратная связь')
                 ->icon('phone'),
             ...parent::menu(),
