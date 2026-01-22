@@ -62,6 +62,38 @@
         </div>
     </section>
 
+    @if($product->hasVideo())
+        <section class="product-video__block">
+            <div class="product-video__container">
+                <h2 class="product-video__title">Видеопрезентация</h2>
+                
+                @if($product->video_type === 'youtube')
+                    <div class="product-video__wrapper product-video__youtube">
+                        <iframe 
+                            class="product-video__iframe"
+                            src="{{ $product->getYoutubeEmbedUrl() }}"
+                            title="{{ $product->name }}"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                @elseif($product->video_type === 'file')
+                    <div class="product-video__wrapper product-video__file">
+                        <video 
+                            class="product-video__player"
+                            controls
+                            poster="{{ $product->cover_image ? asset('storage/' . $product->cover_image) : asset('img/default-video-poster.jpg') }}"
+                        >
+                            <source src="{{ $product->getVideoUrl() }}" type="video/mp4">
+                            Ваш браузер не поддерживает HTML5 видео.
+                        </video>
+                    </div>
+                @endif
+            </div>
+        </section>
+    @endif
+
     <section class="product-page__characteristic product-characteristic__block">
         <div class="product-characteristic__container">
             <div class="product-characteristic__row">

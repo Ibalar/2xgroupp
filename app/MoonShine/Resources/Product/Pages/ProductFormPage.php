@@ -19,9 +19,11 @@ use MoonShine\UI\Components\FormBuilder;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Tabs;
 use MoonShine\UI\Components\Tabs\Tab;
+use MoonShine\UI\Fields\File;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Image;
 use MoonShine\UI\Fields\Number;
+use MoonShine\UI\Fields\RadioGroup;
 use MoonShine\UI\Fields\Switcher;
 use MoonShine\UI\Fields\Text;
 use MoonShine\UI\Fields\Textarea;
@@ -100,6 +102,28 @@ class ProductFormPage extends FormPage
                             ->multiple()
                             ->removable()
                             ->nullable(),
+                    ]),
+                    Tab::make('Видео', [
+                        RadioGroup::make('video_type', 'Тип видео')
+                            ->options([
+                                'youtube' => 'YouTube',
+                                'file' => 'Загрузить файл',
+                            ])
+                            ->nullable(),
+
+                        Text::make('video_url', 'YouTube ссылка / Видеофайл')
+                            ->hideWhen('video_type', null, '=')
+                            ->nullable()
+                            ->hint('Для YouTube: вставьте полную ссылку (https://www.youtube.com/watch?v=...)
+                           <br>Для файла: выберите в поле ниже'),
+
+                        File::make('video_file', 'Выберите видеофайл')
+                            ->disk('public')
+                            ->dir('products/videos')
+                            ->acceptedExtensions(['mp4', 'webm', 'mov', 'avi', 'mkv'])
+                            ->hideWhen('video_type', 'file', '!=')
+                            ->nullable()
+                            ->hint('Поддерживаемые форматы: MP4, WebM, MOV, AVI, MKV'),
                     ]),
                 ]),
             ]),
