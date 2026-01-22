@@ -16,7 +16,7 @@ class CatalogService extends AbstractService
      */
     public function getHomeCategories(int $limit = 8): Collection
     {
-        return $this->rememberForever('home_categories', function () use ($limit) {
+        return $this->rememberForever('home_categories', function () {
             return CatalogCategory::active()
                 ->ordered()
                 ->get(['id', 'name', 'slug', 'image']);

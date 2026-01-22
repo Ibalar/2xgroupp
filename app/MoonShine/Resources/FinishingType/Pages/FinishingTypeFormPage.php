@@ -9,8 +9,8 @@ use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\TinyMce\Fields\TinyMce;
 use MoonShine\UI\Components\Layout\Box;
+use MoonShine\UI\Fields\File;
 use MoonShine\UI\Fields\ID;
-use MoonShine\UI\Fields\Image;
 use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Select;
 use MoonShine\UI\Fields\Switcher;
@@ -39,14 +39,17 @@ class FinishingTypeFormPage extends FormPage
                     ->required(),
                 TinyMce::make('Описание', 'description')
                     ->nullable(),
-                Image::make('Изображение', 'image')
+                File::make('Галерея изображений', 'gallery_images')
+                    ->multiple()
                     ->disk('public')
                     ->dir('finishing')
                     ->allowedExtensions(['jpg', 'jpeg', 'png', 'webp'])
                     ->removable()
                     ->nullable(),
+
                 Switcher::make('Активен', 'is_active')
                     ->default(true),
+
                 Number::make('Сортировка', 'sort')
                     ->default(0),
             ]),
