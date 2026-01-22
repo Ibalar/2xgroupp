@@ -11,10 +11,12 @@ use MoonShine\TinyMce\Fields\TinyMce;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\File;
 use MoonShine\UI\Fields\ID;
+use MoonShine\UI\Fields\Image;
 use MoonShine\UI\Fields\Number;
 use MoonShine\UI\Fields\Select;
 use MoonShine\UI\Fields\Switcher;
 use MoonShine\UI\Fields\Text;
+
 
 /**
  * @extends FormPage<FinishingTypeResource>
@@ -39,7 +41,7 @@ class FinishingTypeFormPage extends FormPage
                     ->required(),
                 TinyMce::make('Описание', 'description')
                     ->nullable(),
-                File::make('Галерея изображений', 'gallery_images')
+                Image::make('Галерея изображений', 'gallery_images')
                     ->multiple()
                     ->disk('public')
                     ->dir('finishing')
