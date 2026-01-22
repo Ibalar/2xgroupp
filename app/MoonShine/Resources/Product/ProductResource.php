@@ -8,8 +8,9 @@ use App\Models\Product;
 use App\MoonShine\Resources\Product\Pages\ProductDetailPage;
 use App\MoonShine\Resources\Product\Pages\ProductFormPage;
 use App\MoonShine\Resources\Product\Pages\ProductIndexPage;
-use Illuminate\Database\Eloquent\Model;
+use MoonShine\Contracts\Core\DependencyInjection\FieldsContract;
 use MoonShine\Contracts\Core\PageContract;
+use MoonShine\Contracts\Core\TypeCasts\DataWrapperContract;
 use MoonShine\Laravel\Resources\ModelResource;
 
 /**
@@ -35,16 +36,15 @@ class ProductResource extends ModelResource
         ];
     }
 
-    public function afterSave(Model $model): Model
+    protected function afterSave(DataWrapperContract $item, FieldsContract $fields): DataWrapperContract
     {
-        // Если выбран тип file и загружен файл
-        if ($model->video_type === 'file' && request()->file('video_file')) {
+        $model = $item->getOriginal();
+
+        if ($model instanceof Product && $model->video_type === 'file' && request()->file('video_file')) {
             $file = request()->file('video_file');
-            $path = $file->store('products/videos', 'public');
-            $model->video_url = $path;
-            $model->save();
+            $model->video_url = $file->store('products/videos', 'public');
         }
 
-        return $model;
+        return parent::afterSave($item, $fields);
     }
 }
