@@ -20,7 +20,7 @@ class Product extends Model
         'is_active', 'is_popular', 'sort',
         'cover_image',
         'gallery_images',
-        'video_type', 'video_url',
+        'video_type', 'video_url', 'video_file_path',
     ];
 
     protected $casts = [
@@ -62,7 +62,15 @@ class Product extends Model
 
     public function hasVideo(): bool
     {
-        return ! empty($this->video_type) && ! empty($this->video_url);
+        if ($this->video_type === 'youtube') {
+            return ! empty($this->video_url);
+        }
+
+        if ($this->video_type === 'file') {
+            return ! empty($this->video_file_path);
+        }
+
+        return false;
     }
 
     public function getYoutubeEmbedUrl(): ?string
@@ -89,8 +97,8 @@ class Product extends Model
 
     public function getVideoUrl(): ?string
     {
-        if ($this->video_type === 'file' && $this->video_url) {
-            return asset('storage/'.$this->video_url);
+        if ($this->video_type === 'file' && $this->video_file_path) {
+            return asset('storage/'.$this->video_file_path);
         }
 
         return null;

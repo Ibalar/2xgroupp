@@ -117,14 +117,13 @@ class ProductFormPage extends FormPage
                             ->nullable()
                             ->hint('Вставьте полную ссылку YouTube:<br>https://www.youtube.com/watch?v=... или https://youtu.be/...'),
 
-                        File::make('Выберите видеофайл', 'video_file')
+                        File::make('Выберите видеофайл', 'video_file_path')
                             ->disk('public')
                             ->dir('products/videos')
-                            ->allowedExtensions(['mp4', 'webm', 'mov', 'avi', 'mkv'])
+                            ->acceptedExtensions(['mp4', 'webm', 'mov', 'avi', 'mkv'])
                             ->showWhen('video_type', 'file')
-                            ->canApply(static fn (): bool => false)
                             ->nullable()
-                            ->hint('Поддерживаемые форматы: MP4, WebM, MOV, AVI, MKV'),
+                            ->hint('Поддерживаемые форматы: MP4, WebM, MOV, AVI, MKV<br>Будет сохранён в storage/products/videos/'),
                     ]),
                 ]),
             ]),
