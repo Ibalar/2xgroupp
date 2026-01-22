@@ -23,7 +23,7 @@ use MoonShine\UI\Fields\File;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Image;
 use MoonShine\UI\Fields\Number;
-use MoonShine\UI\Fields\RadioGroup;
+use MoonShine\UI\Fields\Select;
 use MoonShine\UI\Fields\Switcher;
 use MoonShine\UI\Fields\Text;
 use MoonShine\UI\Fields\Textarea;
@@ -104,24 +104,24 @@ class ProductFormPage extends FormPage
                             ->nullable(),
                     ]),
                     Tab::make('Видео', [
-                        RadioGroup::make('Тип видео', 'video_type')
+                        Select::make('Тип видео', 'video_type')
                             ->options([
                                 'youtube' => 'YouTube',
                                 'file' => 'Загрузить файл',
                             ])
-                            ->nullable(),
-
-                        Text::make('YouTube ссылка / Видеофайл', 'video_url')
-                            ->hideWhen('video_type', null, '=')
                             ->nullable()
-                            ->hint('Для YouTube: вставьте полную ссылку (https://www.youtube.com/watch?v=...)
-                           <br>Для файла: выберите в поле ниже'),
+                            ->searchable(),
+
+                        Text::make('YouTube ссылка', 'video_url')
+                            ->showWhen('video_type', 'youtube')
+                            ->nullable()
+                            ->hint('Вставьте полную ссылку YouTube:<br>https://www.youtube.com/watch?v=... или https://youtu.be/...'),
 
                         File::make('Выберите видеофайл', 'video_file')
                             ->disk('public')
                             ->dir('products/videos')
                             ->allowedExtensions(['mp4', 'webm', 'mov', 'avi', 'mkv'])
-                            ->hideWhen('video_type', 'file', '!=')
+                            ->showWhen('video_type', 'file')
                             ->canApply(static fn (): bool => false)
                             ->nullable()
                             ->hint('Поддерживаемые форматы: MP4, WebM, MOV, AVI, MKV'),
