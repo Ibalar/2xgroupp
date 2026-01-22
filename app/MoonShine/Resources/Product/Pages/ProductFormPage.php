@@ -104,24 +104,25 @@ class ProductFormPage extends FormPage
                             ->nullable(),
                     ]),
                     Tab::make('Видео', [
-                        RadioGroup::make('video_type', 'Тип видео')
+                        RadioGroup::make('Тип видео', 'video_type')
                             ->options([
                                 'youtube' => 'YouTube',
                                 'file' => 'Загрузить файл',
                             ])
                             ->nullable(),
 
-                        Text::make('video_url', 'YouTube ссылка / Видеофайл')
+                        Text::make('YouTube ссылка / Видеофайл', 'video_url')
                             ->hideWhen('video_type', null, '=')
                             ->nullable()
                             ->hint('Для YouTube: вставьте полную ссылку (https://www.youtube.com/watch?v=...)
                            <br>Для файла: выберите в поле ниже'),
 
-                        File::make('video_file', 'Выберите видеофайл')
+                        File::make('Выберите видеофайл', 'video_file')
                             ->disk('public')
                             ->dir('products/videos')
-                            ->acceptedExtensions(['mp4', 'webm', 'mov', 'avi', 'mkv'])
+                            ->allowedExtensions(['mp4', 'webm', 'mov', 'avi', 'mkv'])
                             ->hideWhen('video_type', 'file', '!=')
+                            ->canApply(static fn (): bool => false)
                             ->nullable()
                             ->hint('Поддерживаемые форматы: MP4, WebM, MOV, AVI, MKV'),
                     ]),
