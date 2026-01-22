@@ -4920,3 +4920,132 @@ input[type=text]:focus {
         opacity: 0;
     }
 }
+
+/* Стили для галереи слайдера видов отделки */
+.finishing-show__block {
+    padding: 40px 0;
+}
+
+.finishing-show__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.finishing-show__title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.finishing-gallery__wrapper {
+    margin-bottom: 30px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.finishing-gallery-slider {
+    width: 100%;
+    max-width: 100%;
+}
+
+.finishing-gallery__slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f5f5;
+    min-height: 400px;
+}
+
+.finishing-gallery__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-height: 600px;
+}
+
+.finishing-gallery__prev,
+.finishing-gallery__next {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s;
+}
+
+.finishing-gallery__prev:hover,
+.finishing-gallery__next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.finishing-gallery__pagination {
+    bottom: 20px;
+}
+
+.finishing-gallery__placeholder {
+    background: #f5f5f5;
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 8px;
+    color: #999;
+}
+
+.finishing-show__description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.finishing-show__cta {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+
+.finishing-show__button {
+    display: inline-block;
+    padding: 15px 40px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.finishing-show__button:hover {
+    background-color: #45a049;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .finishing-show__title {
+        font-size: 24px;
+    }
+
+    .finishing-gallery__slide {
+        min-height: 300px;
+    }
+
+    .finishing-gallery__prev,
+    .finishing-gallery__next {
+        width: 40px;
+        height: 40px;
+    }
+
+    .finishing-show__button {
+        width: 100%;
+        text-align: center;
+    }
+}

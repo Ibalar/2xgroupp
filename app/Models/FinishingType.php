@@ -16,14 +16,24 @@ class FinishingType extends Model
         'type',
         'name',
         'description',
-        'image',
+        'gallery_images',
         'is_active',
         'sort',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'gallery_images' => 'array',
     ];
+
+    public function getFirstImageAttribute(): ?string
+    {
+        if (is_array($this->gallery_images) && count($this->gallery_images) > 0) {
+            return $this->gallery_images[0];
+        }
+
+        return null;
+    }
 
     public function scopeActive(Builder $query): Builder
     {

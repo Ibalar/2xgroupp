@@ -11,11 +11,11 @@ class FinishingController extends Controller
     public function index(): View
     {
         $internalTypes = Cache::remember('finishing_types_internal', now()->addDay(), function () {
-            return FinishingType::active()->internal()->ordered()->get(['id', 'name', 'description', 'image', 'type']);
+            return FinishingType::active()->internal()->ordered()->get(['id', 'name', 'description', 'gallery_images', 'type']);
         });
 
         $externalTypes = Cache::remember('finishing_types_external', now()->addDay(), function () {
-            return FinishingType::active()->external()->ordered()->get(['id', 'name', 'description', 'image', 'type']);
+            return FinishingType::active()->external()->ordered()->get(['id', 'name', 'description', 'gallery_images', 'type']);
         });
 
         return view('finishing.index', compact('internalTypes', 'externalTypes'));
@@ -34,7 +34,7 @@ class FinishingController extends Controller
                 ->where('type', $oppositeType)
                 ->ordered()
                 ->limit(3)
-                ->get(['id', 'name', 'image', 'type']);
+                ->get(['id', 'name', 'gallery_images', 'type']);
         });
 
         return view('finishing.show', compact('finishingType', 'similar'));

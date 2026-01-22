@@ -18,7 +18,7 @@
                         <div class="home-services__item">
                             <a href="{{ route('finishing.show', ['type' => $type->type, 'finishingType' => $type->id]) }}" class="services-img__link">
                                 <img
-                                    src="{{ $type->image ? asset('storage/' . $type->image) : asset('img/services/img-services__01.jpg') }}"
+                                    src="{{ $type->first_image ? asset('storage/' . $type->first_image) : asset('img/services/img-services__01.jpg') }}"
                                     alt="{{ $type->name }}"
                                     class="services-item__img"
                                     loading="lazy"
@@ -55,7 +55,7 @@
                         <div class="home-services__item">
                             <a href="{{ route('finishing.show', ['type' => $type->type, 'finishingType' => $type->id]) }}" class="services-img__link">
                                 <img
-                                    src="{{ $type->image ? asset('storage/' . $type->image) : asset('img/services/img-services__01.jpg') }}"
+                                    src="{{ $type->first_image ? asset('storage/' . $type->first_image) : asset('img/services/img-services__01.jpg') }}"
                                     alt="{{ $type->name }}"
                                     class="services-item__img"
                                     loading="lazy"

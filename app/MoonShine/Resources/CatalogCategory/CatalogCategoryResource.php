@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources\CatalogCategory;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\CatalogCategory;
-use App\MoonShine\Resources\CatalogCategory\Pages\CatalogCategoryIndexPage;
-use App\MoonShine\Resources\CatalogCategory\Pages\CatalogCategoryFormPage;
 use App\MoonShine\Resources\CatalogCategory\Pages\CatalogCategoryDetailPage;
-
-use MoonShine\Laravel\Resources\ModelResource;
+use App\MoonShine\Resources\CatalogCategory\Pages\CatalogCategoryFormPage;
+use App\MoonShine\Resources\CatalogCategory\Pages\CatalogCategoryIndexPage;
 use MoonShine\Contracts\Core\PageContract;
+use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\Support\Enums\Action;
 use MoonShine\Support\Enums\PageType;
 use MoonShine\Support\ListOf;
@@ -27,7 +25,7 @@ class CatalogCategoryResource extends ModelResource
 
     protected string $column = 'name';
 
-       protected bool $createInModal = true;
+    protected bool $createInModal = true;
 
     protected bool $editInModal = true;
 
@@ -50,7 +48,6 @@ class CatalogCategoryResource extends ModelResource
     protected function activeActions(): ListOf
     {
         return parent::activeActions()
-            ->except(Action::VIEW)
-            ;
+            ->except(Action::VIEW);
     }
 }
