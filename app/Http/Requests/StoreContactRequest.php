@@ -19,6 +19,7 @@ class StoreContactRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'phone' => ['required', 'string', new BelarusianPhoneRule, 'max:20'],
+            'email' => 'nullable|email|max:255',
             'message' => 'nullable|string|max:1000',
             'privacy_agreed' => 'required|accepted',
         ];

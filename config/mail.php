@@ -115,4 +115,16 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Email
+    |--------------------------------------------------------------------------
+    |
+    | You may specify an administrator email address that receives
+    | notifications and alerts from your application.
+    |
+    */
+
+    'admin_email' => env('ADMIN_EMAIL', 'admin@2xgroupp.by'),
+
 ];
