@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources\FinishingType\Pages;
 
 use App\MoonShine\Resources\FinishingType\FinishingTypeResource;
+use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\TinyMce\Fields\TinyMce;
+use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
 use MoonShine\UI\Fields\Image;
@@ -54,5 +56,33 @@ class FinishingTypeFormPage extends FormPage
                     ->default(0),
             ]),
         ];
+    }
+
+    /**
+     * @return list<ComponentContract>
+     */
+    protected function bottomLayer(): array
+    {
+        $layers = [
+            ...parent::bottomLayer(),
+        ];
+
+        /** @var \App\Models\FinishingType|null $item */
+        $item = $this->getItem();
+
+        if ($item?->exists) {
+            $layers[] = ActionButton::make(
+                'Открыть на сайте',
+                route('finishing.show', [
+                    'type' => $item->type,
+                    'finishingType' => $item->id,
+                ])
+            )
+                ->icon('arrow-top-right-on-square')
+                ->blank()
+                ->secondary();
+        }
+
+        return $layers;
     }
 }
