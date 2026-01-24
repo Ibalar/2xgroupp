@@ -49,14 +49,11 @@
                 </label>
                 <span class="error-message privacy_agreed-error" style="color: red; font-size: 12px;"></span>
             </div>
-
-            <div >
+            <div class="contact-form__offer">
                 <button class="service-button__send animate__animated animate__pulse animate__infinite" type="submit">ЗАКАЗАТЬ</button>
             </div>
         </form>
-        <div class="contact-form__offer">
-            Нажимая на кнопку, вы даете согласие на обработку своих персональных данных
-        </div>
+
     </div>
 
     <script src="https://api-maps.yandex.ru/2.0/?apikey=1e447194-5fb1-4596-84bc-f10e4f0b759f&load=package.full&lang=ru-RU" type="text/javascript"></script>
@@ -148,7 +145,7 @@
 
             try {
                 submitButton.disabled = true;
-                
+
                 const response = await fetch(form.action, {
                     method: 'POST',
                     headers: {

@@ -2384,7 +2384,7 @@ img.mfp-img {
     cursor: pointer;
 }
 
-/* Подключение шрифтов 
+/* Подключение шрифтов
 @font-face {
     font-family: 'Roboto';
     src: local('Roboto'), local('Roboto-Regular'), url('../fonts/Roboto.woff2') format('woff2'), url('../fonts/Roboto.woff') format('woff'), url('../fonts/Roboto.ttf') format('truetype');
@@ -3604,7 +3604,8 @@ input {
     line-height: 36px;
     text-align: center;
     color: #000000;
-    margin-bottom: 75px;
+    margin-bottom: 35px;
+    padding-top: 40px;
 }
 
 .contact-form__row {

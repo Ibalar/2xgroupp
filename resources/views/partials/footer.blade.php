@@ -35,7 +35,7 @@
         </div>
         <div class="footer-block__bottom">
             <div class="footer-bottom__row">
-                <div class="footer-bottom__item">2022-2025 «www.2xgroupp.by» <a href="#" class="footer-bottom__link">Правовая информация</a></div>
+                <div class="footer-bottom__item">2022-2025 «www.2xgroupp.by» <a href="{{ route('home') }}/privacy-policy" class="footer-bottom__link">Правовая информация</a></div>
                 <div class="footer-bottom__item">Разработка сайта - <a href="https://webart.by" class="footer-bottom__link">WebArt.BY</a></div>
             </div>
         </div>
