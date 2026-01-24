@@ -20,6 +20,7 @@ class StoreContactRequest extends FormRequest
             'name' => 'required|string|max:255',
             'phone' => ['required', 'string', new BelarusianPhoneRule, 'max:20'],
             'message' => 'nullable|string|max:1000',
+            'privacy_agreed' => 'required|accepted',
         ];
     }
 
@@ -34,6 +35,8 @@ class StoreContactRequest extends FormRequest
             'phone.max' => 'Телефон не должен быть длиннее 20 символов',
             'message.string' => 'Сообщение должно быть текстом',
             'message.max' => 'Сообщение не должно быть длиннее 1000 символов',
+            'privacy_agreed.required' => 'Вы должны согласиться с политикой конфиденциальности',
+            'privacy_agreed.accepted' => 'Вы должны согласиться с политикой конфиденциальности',
         ];
     }
 
@@ -43,6 +46,7 @@ class StoreContactRequest extends FormRequest
             'name' => 'Имя',
             'phone' => 'Телефон',
             'message' => 'Сообщение',
+            'privacy_agreed' => 'Согласие с политикой конфиденциальности',
         ];
     }
 }
