@@ -13,6 +13,7 @@ use MoonShine\Laravel\Fields\Slug;
 use MoonShine\Laravel\Pages\Crud\FormPage;
 use MoonShine\Support\ListOf;
 use MoonShine\TinyMce\Fields\TinyMce;
+use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Fields\ID;
@@ -116,8 +117,23 @@ class PageFormPage extends FormPage
      */
     protected function bottomLayer(): array
     {
-        return [
+        $layers = [
             ...parent::bottomLayer(),
         ];
+
+        /** @var \App\Models\Page|null $item */
+        $item = $this->getItem();
+
+        if ($item?->exists) {
+            $layers[] = ActionButton::make(
+                'Открыть на сайте',
+                route('page.show', ['page' => $item->slug])
+            )
+                ->icon('arrow-top-right-on-square')
+                ->blank()
+                ->secondary();
+        }
+
+        return $layers;
     }
 }
