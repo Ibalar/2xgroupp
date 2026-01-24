@@ -17,11 +17,12 @@ class ContactController extends Controller
             'phone' => $request->validated()['phone'],
             'message' => $request->validated()['message'] ?? null,
             'source' => 'contact_form',
+            'privacy_agreed' => true,
         ]);
 
         return response()->json([
             'success' => true,
-            'message' => 'Спасибо! Ваше сообщение принято. Мы свяжемся с вами в ближайшее время.',
+            'message' => 'Спасибо! Ваша заявка принята. Мы свяжемся с вами в ближайшее время.',
         ], 201);
     }
 }

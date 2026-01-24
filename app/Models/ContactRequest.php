@@ -14,6 +14,7 @@ class ContactRequest extends Model
         'message',
         'source',
         'status',
+        'privacy_agreed',
     ];
 
     protected $casts = [
